@@ -3,24 +3,24 @@
 using namespace std;
 
 class OneTimePad {
-    vector<int> v;
+    vector<char> v;
 public:
     OneTimePad() {
         v.clear();
     }
 
-    vector<int> encrypt(vector<int> plain) {
+    vector<char> encrypt(vector<char> plain) {
         srand(time(NULL));
         while (v.size() < plain.size()) v.push_back(rand());
-        vector<int> ret;
+        vector<char> ret;
         ret.clear();
         for (int i = 0; i < plain.size(); i++)
             ret.push_back(v[i] ^ plain[i]);
         return ret;
     }
 
-    vector<int> decrypt(vector<int> cipher) {
-        vector<int> ret;
+    vector<char> decrypt(vector<char> cipher) {
+        vector<char> ret;
         ret.clear();
         for (int i = 0; i < cipher.size(); i++)
             ret.push_back(v[i] ^ cipher[i]);
@@ -30,7 +30,7 @@ public:
 
 int main() {
     OneTimePad otp = *(new OneTimePad());
-    auto test = otp.decrypt(otp.encrypt(*(new vector<int>({1, 2, 3}))));
+    auto test = otp.decrypt(otp.encrypt(*(new vector<char>({'1', '2', '3'}))));
     for (auto i:test)
         cout << i << " ";
 }
