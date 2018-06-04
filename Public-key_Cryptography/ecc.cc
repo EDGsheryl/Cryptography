@@ -35,17 +35,17 @@ public:
 
         point(int _x, int _y, int _a, int _MOD) : x(_x), y(_y), a(_a), MOD(_MOD) {};
 
-        friend point &operator+=(point &lhs, point &rhs);
+        friend point &operator+=(point &lhs, const point &rhs);
 
-        friend point operator+(point lhs, point &rhs);
+        friend point operator+(point lhs, const point &rhs);
 
-        friend point operator*(int lhs, point &rhs);
+        friend point operator*(int lhs, const point &rhs);
 
         point operator-();
     };
 };
 
-ECC::point &operator+=(ECC::point &lhs, ECC::point &rhs) {
+ECC::point &operator+=(ECC::point &lhs, const ECC::point &rhs) {
     assert(lhs.a = rhs.a);
     assert(lhs.MOD == rhs.MOD);
     int lambda = (lhs.x == rhs.x && rhs.y == lhs.y) ? (((3 * lhs.x * lhs.x) % lhs.MOD + lhs.a) *
@@ -62,7 +62,7 @@ ECC::point &operator+=(ECC::point &lhs, ECC::point &rhs) {
     return lhs;
 }
 
-ECC::point operator+(ECC::point lhs, ECC::point &rhs) {
+ECC::point operator+(ECC::point lhs, const ECC::point &rhs) {
     return lhs += rhs;
 }
 
@@ -70,7 +70,7 @@ ECC::point ECC::point::operator-() {
     return ECC::point(this->x, -this->y, this->a, this->MOD);
 }
 
-ECC::point operator*(int lhs, ECC::point &rhs) {
+ECC::point operator*(int lhs, const ECC::point &rhs) {
     assert(lhs != 0);
     ECC::point ret = rhs;
     lhs--;
